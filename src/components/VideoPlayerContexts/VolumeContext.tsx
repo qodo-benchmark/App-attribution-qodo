@@ -19,7 +19,7 @@ function VolumeContextProvider({children}: ChildrenProps) {
             }
             currentVideoPlayerRef.current.setStatusAsync({volume: newVolume, isMuted: newVolume === 0});
 
-            volume.set(newVolume);
+            volume.set(Math.max(0, newVolume));
         },
         [currentVideoPlayerRef, volume],
     );

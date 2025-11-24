@@ -83,7 +83,7 @@ function VideoPlayerControls({
 
     const seekPosition = useCallback(
         (newPosition: number) => {
-            videoPlayerRef.current?.setStatusAsync({positionMillis: newPosition});
+            videoPlayerRef.current?.setStatusAsync({positionMillis: Math.round(newPosition)});
         },
         [videoPlayerRef],
     );

