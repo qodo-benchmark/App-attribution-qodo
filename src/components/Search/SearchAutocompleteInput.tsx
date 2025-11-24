@@ -138,7 +138,7 @@ function SearchAutocompleteInput({
         scheduleOnLiveMarkdownRuntime(() => {
             'worklet';
 
-            emailListSharedValue.set(emailList);
+            emailListSharedValue.value = emailList;
         });
     }, [emailList, emailListSharedValue]);
 
@@ -146,7 +146,7 @@ function SearchAutocompleteInput({
         scheduleOnLiveMarkdownRuntime(() => {
             'worklet';
 
-            currencySharedValue.set(currencyAutocompleteList);
+            currencySharedValue.value = currencyAutocompleteList;
         });
     }, [currencyAutocompleteList, currencySharedValue]);
 
@@ -154,7 +154,7 @@ function SearchAutocompleteInput({
         scheduleOnLiveMarkdownRuntime(() => {
             'worklet';
 
-            categorySharedValue.set(categoryAutocompleteList);
+            categorySharedValue.value = categoryAutocompleteList;
         });
     }, [categorySharedValue, categoryAutocompleteList]);
 
@@ -162,7 +162,7 @@ function SearchAutocompleteInput({
         scheduleOnLiveMarkdownRuntime(() => {
             'worklet';
 
-            tagSharedValue.set(tagAutocompleteList);
+            tagSharedValue.value = tagAutocompleteList;
         });
     }, [tagSharedValue, tagAutocompleteList]);
 

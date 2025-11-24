@@ -408,7 +408,7 @@ function ReportActionCompose({
         scheduleOnUI(() => {
             'worklet';
 
-            const {clear: clearComposer} = composerRefShared.get();
+            const {clear: clearComposer} = composerRefShared.value;
 
             if (!clearComposer) {
                 throw new Error('The composerRefShared.clear function is not set yet. This should never happen, and indicates a developer error.');

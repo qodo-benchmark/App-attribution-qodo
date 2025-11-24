@@ -146,7 +146,7 @@ function useWorkletStateMachine<SM extends StateMachine<string, string>, P>(stat
     }, [currentState, initialState, log]);
 
     const reset = useCallback(() => {
-        scheduleOnUI(resetWorklet);
+        runOnUISync(resetWorklet);
     }, [resetWorklet]);
 
     const transition = useCallback(

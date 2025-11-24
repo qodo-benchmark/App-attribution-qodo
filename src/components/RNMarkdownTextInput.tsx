@@ -66,7 +66,7 @@ function RNMarkdownTextInputWithRef({maxLength, parser, ref, forwardedFSClass = 
         scheduleOnLiveMarkdownRuntime(() => {
             'worklet';
 
-            mentionsSharedVal.set(availableLoginsList);
+            mentionsSharedVal.value = availableLoginsList;
         });
     }, [availableLoginsList, mentionsSharedVal]);
 
