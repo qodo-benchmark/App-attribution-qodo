@@ -3393,7 +3393,7 @@ function getMoneyRequestInformation(moneyRequestInformation: MoneyRequestInforma
             ? buildOptimisticExpenseReport(chatReport.reportID, chatReport.policyID, payeeAccountID, amount, currency, nonReimbursableTotal, undefined, optimisticIOUReportID)
             : buildOptimisticIOUReport(payeeAccountID, payerAccountID, amount, chatReport.reportID, currency, undefined, undefined, optimisticIOUReportID);
     } else if (isPolicyExpenseChat) {
-        // Splitting doesn’t affect the amount, so no adjustment is needed
+        // Splitting doesn't affect the amount, so no adjustment is needed
         // The amount remains constant after the split
         if (!isSplitExpense) {
             iouReport = {...iouReport};
@@ -3402,7 +3402,7 @@ function getMoneyRequestInformation(moneyRequestInformation: MoneyRequestInforma
                 if (!Number.isNaN(iouReport.total) && iouReport.total !== undefined) {
                     iouReport.total -= amount;
                 }
-                iouReport.nonReimbursableTotal = (iouReport.nonReimbursableTotal ?? 0) - amount;
+                iouReport.nonReimbursableTotal = (iouReport.nonReimbursableTotal ?? 0) - (reimbursable ? 0 : amount);
 
                 if (typeof iouReport.unheldTotal === 'number') {
                     iouReport.unheldTotal -= amount;
@@ -4199,7 +4199,7 @@ function getUpdateMoneyRequestParams(
             updatedMoneyRequestReport.nonReimbursableTotal -= diff;
         }
         if (updatedTransaction && transaction?.reimbursable !== updatedTransaction?.reimbursable && typeof updatedMoneyRequestReport.nonReimbursableTotal === 'number') {
-            updatedMoneyRequestReport.nonReimbursableTotal += updatedTransaction.reimbursable ? -updatedTransaction.amount : updatedTransaction.amount;
+            updatedMoneyRequestReport.nonReimbursableTotal += updatedTransaction.reimbursable ? updatedTransaction.amount : -updatedTransaction.amount;
         }
         if (!isTransactionOnHold) {
             if (typeof updatedMoneyRequestReport.unheldTotal === 'number') {
@@ -4209,7 +4209,7 @@ function getUpdateMoneyRequestParams(
                 updatedMoneyRequestReport.unheldNonReimbursableTotal -= diff;
             }
             if (updatedTransaction && transaction?.reimbursable !== updatedTransaction?.reimbursable && typeof updatedMoneyRequestReport.unheldNonReimbursableTotal === 'number') {
-                updatedMoneyRequestReport.unheldNonReimbursableTotal += updatedTransaction.reimbursable ? -updatedTransaction.amount : updatedTransaction.amount;
+                updatedMoneyRequestReport.unheldNonReimbursableTotal += updatedTransaction.reimbursable ? updatedTransaction.amount : -updatedTransaction.amount;
             }
         }
     } else {

