@@ -391,7 +391,7 @@ function ComposerWithSuggestions({
             const {text: rewritten, didReplace} = detectAndRewritePaste(prevText, prevSelectionStart, prevSelectionEnd, diff);
 
             // Use the rewritten text when we replaced; otherwise fall back to the original commentValue pipeline
-            const effectiveCommentValue = didReplace ? (rewritten ?? commentValue) : commentValue;
+            const effectiveCommentValue = didReplace && rewritten ? rewritten : commentValue;
 
             // Emoji handling: skip the "emoji inserted" special-case when we performed the markdown rewrite.
             const isEmojiInserted =

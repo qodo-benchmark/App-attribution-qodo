@@ -11,7 +11,7 @@ const isStandaloneURL = (text: string): boolean => {
     if (/\s/.test(trimmed)) {
         return false;
     }
-    const unwrapped = trimmed.replace(/^<|>$/g, '');
+    const unwrapped = trimmed.replace(/^</g, '').replace(/>$/g, '');
 
     // Reject if contains emoji or any non-ASCII characters
     // (valid URLs per RFC 3986 should be ASCII-only)
@@ -35,7 +35,7 @@ const escapeLinkText = (text: string): string => {
         .replace(/\r?\n+/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
-    return collapsed.replace(/\[/g, '&#91;').replace(/\]/g, '&#93;');
+    return collapsed.replace(/\[/g, '&#91;').replace(/]/g, '&#93;');
 };
 
 /**
@@ -52,7 +52,7 @@ const sanitizeUrlForMarkdown = (url: string): string => {
     const unwrapped = trimmed.replace(/^<|>$/g, '');
 
     try {
-        return encodeURI(unwrapped);
+        return encodeURI(decodeURI(unwrapped));
     } catch {
         return unwrapped;
     }
@@ -79,8 +79,8 @@ const detectAndRewritePaste = (prevText: string, selectionStart: number, selecti
         return {text: null, didReplace: false};
     }
 
-    const replacedSelectionLength = Math.max(0, selectionEnd - selectionStart);
-    if (replacedSelectionLength === 0) {
+    const replacedSelectionLength = selectionEnd - selectionStart;
+    if (replacedSelectionLength <= 0) {
         // nothing replaced (user pasted URL without selecting text) -> don't rewrite
         return {text: null, didReplace: false};
     }

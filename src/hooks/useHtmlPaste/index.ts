@@ -114,7 +114,7 @@ const useHtmlPaste: UseHtmlPaste = (textInputRef, preHtmlPasteCallback, isActive
             const selection = window.getSelection?.();
             const selectedText = selection?.toString() ?? '';
 
-            if (isStandaloneURL(clipboardText) && selectedText) {
+            if (isStandaloneURL(clipboardText) && selectedText.length > 0) {
                 paste(toMarkdownLink(selectedText, clipboardText));
                 return;
             }
