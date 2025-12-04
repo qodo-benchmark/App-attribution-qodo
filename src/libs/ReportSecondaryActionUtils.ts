@@ -104,7 +104,7 @@ function isSplitAction(report: Report, reportTransactions: Transaction[], policy
         return false;
     }
 
-    if (report.statusNum && report.statusNum >= CONST.REPORT.STATUS_NUM.CLOSED) {
+    if (report.stateNum && report.stateNum >= CONST.REPORT.STATE_NUM.APPROVED) {
         return false;
     }
 
