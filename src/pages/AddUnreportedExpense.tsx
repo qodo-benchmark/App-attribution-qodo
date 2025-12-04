@@ -61,7 +61,7 @@ function AddUnreportedExpense({route}: AddUnreportedExpensePageType) {
     const {isBetaEnabled} = usePermissions();
     const isASAPSubmitBetaEnabled = isBetaEnabled(CONST.BETAS.ASAP_SUBMIT);
     const session = useSession();
-    const selfDMReportID = useMemo(() => findSelfDMReportID(), []);
+    const selfDMReportID = findSelfDMReportID();
     const shouldShowUnreportedTransactionsSkeletons = isLoadingUnreportedTransactions && hasMoreUnreportedTransactionsResults && !isOffline;
 
     const getUnreportedTransactions = useCallback(

