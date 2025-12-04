@@ -45,9 +45,7 @@ function AddNewCardPage({policy}: WithPolicyAndFullscreenLoadingProps) {
     const isAddCardFeedLoading = isLoadingOnyxValue(addNewCardFeedMetadata);
 
     useEffect(() => {
-        return () => {
-            clearAddNewCardFlow();
-        };
+        clearAddNewCardFlow();
     }, []);
 
     useEffect(() => {
@@ -133,8 +131,8 @@ function AddNewCardPage({policy}: WithPolicyAndFullscreenLoadingProps) {
                 prompt={translate('workspace.companyCards.addNewCard.exitModal.prompt')}
                 onCancel={() => setIsModalVisible(false)}
                 onConfirm={() => {
-                    setIsModalVisible(false);
                     navigateToConciergeChat();
+                    setIsModalVisible(false);
                 }}
             />
         </>
