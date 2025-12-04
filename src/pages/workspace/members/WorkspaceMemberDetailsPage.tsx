@@ -238,7 +238,7 @@ function WorkspaceMemberDetailsPage({personalDetails, policy, route}: WorkspaceM
     // Function to remove a member and close the modal
     const removeMemberAndCloseModal = useCallback(() => {
         removeMembers(policyID, [memberLogin], {[memberLogin]: accountID});
-        const previousEmployeesCount = Object.keys(policy?.employeeList ?? {}).length;
+        const previousEmployeesCount = Object.values(policy?.employeeList ?? {}).filter((employee) => employee.pendingAction !== CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length;
         const remainingEmployeeCount = previousEmployeesCount - 1;
         if (remainingEmployeeCount === 1 && policy?.preventSelfApproval) {
             // We can't let the "Prevent Self Approvals" enabled if there's only one workspace user

