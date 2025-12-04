@@ -1132,6 +1132,7 @@ const CONST = {
             EXPORT: 'export',
             PAY: 'pay',
             MERGE: 'merge',
+            REPORT_LAYOUT: 'reportLayout',
         },
         PRIMARY_ACTIONS: {
             SUBMIT: 'submit',

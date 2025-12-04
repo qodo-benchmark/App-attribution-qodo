@@ -688,6 +688,10 @@ function getSecondaryReportActions({
 
     options.push(CONST.REPORT.SECONDARY_ACTIONS.EXPORT);
 
+    if (reportTransactions.length >= 2) {
+        options.push(CONST.REPORT.SECONDARY_ACTIONS.REPORT_LAYOUT);
+    }
+
     options.push(CONST.REPORT.SECONDARY_ACTIONS.DOWNLOAD_PDF);
 
     if (isChangeWorkspaceAction(report, policies, reportActions)) {
