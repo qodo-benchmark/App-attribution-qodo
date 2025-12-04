@@ -6332,7 +6332,7 @@ function clearPolicyTitleFieldError(policyID: string) {
 /**
  * Set the workspace currency for the workspace confirmation form
  */
-function setWorkspaceConfirmationCurrency(currency: string) {
+function setWorkspaceConfirmationCurrency(currency?: string) {
     Onyx.merge(ONYXKEYS.FORMS.WORKSPACE_CONFIRMATION_FORM_DRAFT, {currency});
 }
 

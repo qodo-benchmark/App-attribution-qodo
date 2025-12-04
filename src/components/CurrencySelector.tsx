@@ -83,7 +83,7 @@ function CurrencySelector(
             onPress={() => {
                 didOpenCurrencySelector.current = true;
                 if (currencySelectorRoute === ROUTES.CURRENCY_SELECTION) {
-                    Navigation.navigate(currencySelectorRoute.getRoute(Navigation.getActiveRoute()));
+                    Navigation.navigate(currencySelectorRoute.getRoute(Navigation.getActiveRoute()) as typeof ROUTES.SETTINGS_SUBSCRIPTION_CHANGE_PAYMENT_CURRENCY | typeof ROUTES.SETTINGS_CHANGE_CURRENCY);
                 } else {
                     Navigation.navigate(currencySelectorRoute as typeof ROUTES.SETTINGS_SUBSCRIPTION_CHANGE_PAYMENT_CURRENCY | typeof ROUTES.SETTINGS_CHANGE_CURRENCY);
                 }

