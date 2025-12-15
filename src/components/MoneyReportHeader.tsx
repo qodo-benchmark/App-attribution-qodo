@@ -927,6 +927,10 @@ function MoneyReportHeader({
     };
 
     const beginPDFExport = (reportID: string) => {
+        if (isOffline) {
+            // PDF generation requires network connectivity
+            return;
+        }
         setIsPDFModalVisible(true);
         exportReportToPDF({reportID});
     };
