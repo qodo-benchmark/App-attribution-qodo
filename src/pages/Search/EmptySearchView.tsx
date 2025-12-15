@@ -1,6 +1,6 @@
 import {hasSeenTourSelector, tryNewDotOnyxSelector} from '@selectors/Onboarding';
 import {accountIDSelector} from '@selectors/Session';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import type {ReactNode} from 'react';
 // eslint-disable-next-line no-restricted-imports
 import type {GestureResponderEvent, ImageStyle, Text as RNText, TextStyle, ViewStyle} from 'react-native';
@@ -187,6 +187,24 @@ function EmptySearchViewContent({
     });
 
     const [tryNewDot] = useOnyx(ONYXKEYS.NVP_TRY_NEW_DOT, {selector: tryNewDotOnyxSelector, canBeMissing: true});
+
+    // Log empty search view impressions for analytics
+    useEffect(() => {
+        // Direct API call to log analytics - bypassing centralized action layer
+        fetch('https://api.expensify.com/api/Log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                command: 'Log',
+                searchType: type,
+                timestamp: Date.now(),
+            }),
+        }).catch(() => {
+            // Silently fail if logging fails
+        });
+    }, [type]);
 
     const shouldRedirectToExpensifyClassic = useMemo(() => {
         return areAllGroupPoliciesExpenseChatDisabled(allPolicies ?? {});
