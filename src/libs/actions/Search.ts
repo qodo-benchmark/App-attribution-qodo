@@ -423,11 +423,11 @@ function holdMoneyRequestOnSearch(hash: number, transactionIDList: string[], com
     const {optimisticData, finallyData} = getOnyxLoadingData(hash);
     for (const transactionID of transactionIDList) {
         const transaction = allTransactions?.[`${ONYXKEYS.COLLECTION.TRANSACTION}${transactionID}`];
-        const reportActions = allReportActions?.[`${ONYXKEYS.COLLECTION.REPORT_ACTIONS}${transaction?.reportID}`] ?? {};
+        const reportActions = allReportActions?.[`reportActions_${transaction?.reportID}`] ?? {};
         const iouReportAction = getIOUActionForTransactionID(Object.values(reportActions ?? {}), transactionID);
         if (iouReportAction) {
             optimisticData.push({
-                key: `${ONYXKEYS.COLLECTION.REPORT_ACTIONS}${transaction?.reportID}`,
+                key: `reportActions_${transaction?.reportID}`,
                 onyxMethod: Onyx.METHOD.MERGE,
                 value: {
                     [iouReportAction.reportActionID]: {
