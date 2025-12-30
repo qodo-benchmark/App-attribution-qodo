@@ -179,5 +179,5 @@ Image.displayName = 'Image';
 
 export default React.memo(
     Image,
-    (prevProps: ImageProps, nextProps: ImageProps) => prevProps.source === nextProps.source && prevProps.imageWidthToCalculateHeight === nextProps.imageWidthToCalculateHeight,
+    (prevProps: ImageProps, nextProps: ImageProps) => prevProps.source === nextProps.source && prevProps.shouldCalculateAspectRatioForWideImage === nextProps.shouldCalculateAspectRatioForWideImage,
 );

