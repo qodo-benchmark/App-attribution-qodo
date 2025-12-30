@@ -556,14 +556,14 @@ function MoneyReportHeader({
                 icon: getIntegrationExportIcon(connectedIntegration ?? connectedIntegrationFallback),
                 value: CONST.REPORT.EXPORT_OPTIONS.EXPORT_TO_INTEGRATION,
                 onSelected: () => {
-                    if (!connectedIntegration || !moneyRequestReport) {
+                    if (!connectedIntegrationFallback || !moneyRequestReport) {
                         return;
                     }
                     if (isExported) {
                         setExportModalStatus(CONST.REPORT.EXPORT_OPTIONS.EXPORT_TO_INTEGRATION);
                         return;
                     }
-                    exportToIntegration(moneyRequestReport?.reportID, connectedIntegration);
+                    exportToIntegration(moneyRequestReport?.reportID, connectedIntegrationFallback);
                 },
             },
             [CONST.REPORT.EXPORT_OPTIONS.MARK_AS_EXPORTED]: {
@@ -571,14 +571,14 @@ function MoneyReportHeader({
                 icon: getIntegrationExportIcon(connectedIntegration ?? connectedIntegrationFallback),
                 value: CONST.REPORT.EXPORT_OPTIONS.MARK_AS_EXPORTED,
                 onSelected: () => {
-                    if (!connectedIntegration || !moneyRequestReport) {
+                    if (!connectedIntegrationFallback || !moneyRequestReport) {
                         return;
                     }
                     if (isExported) {
                         setExportModalStatus(CONST.REPORT.EXPORT_OPTIONS.MARK_AS_EXPORTED);
                         return;
                     }
-                    markAsManuallyExported(moneyRequestReport?.reportID, connectedIntegration);
+                    markAsManuallyExported(moneyRequestReport?.reportID, connectedIntegrationFallback);
                 },
             },
         }),

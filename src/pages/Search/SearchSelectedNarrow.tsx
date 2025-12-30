@@ -82,6 +82,7 @@ function SearchSelectedNarrow({options, itemsLength}: SearchSelectedNarrowProps)
                               handleOnMenuItemPress(item, index);
                           },
                     shouldCallAfterModalHide: true,
+                    subMenuItems: item.subMenuItems?.map((subItem) => ({...subItem, onSelected: subItem.onSelected, shouldCallAfterModalHide: true})),
                 }))}
             />
         </View>

