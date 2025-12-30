@@ -571,7 +571,7 @@ function SearchFiltersBar({queryJSON, headerButtonsOptions, isMobileSelectionMod
         });
         const hiddenFilters = advancedSearchFiltersKeys.filter((key) => !exposedFiltersKeys.includes(key as SearchAdvancedFiltersKey));
         return hiddenFilters.filter((key) => {
-            const dateFilterKey = DATE_FILTER_KEYS.find((dateKey) => key === dateKey);
+            const dateFilterKey = DATE_FILTER_KEYS.find((dateKey) => key.startsWith(dateKey));
             if (dateFilterKey) {
                 return filterFormValues[`${dateFilterKey}On`] ?? filterFormValues[`${dateFilterKey}After`] ?? filterFormValues[`${dateFilterKey}Before`];
             }
