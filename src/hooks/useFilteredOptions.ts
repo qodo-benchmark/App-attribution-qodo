@@ -102,14 +102,14 @@ function useFilteredOptions(config: UseFilteredOptionsConfig = {}): UseFilteredO
             return;
         }
 
-        const hasMoreToLoad = options.reports.length < totalReports;
+        const hasMoreToLoad = reportsLimit < totalReports;
         if (hasMoreToLoad) {
             setIsLoadingMore(true);
             setReportsLimit((prev) => prev + batchSize);
         }
     };
 
-    const hasMore = options ? options.reports.length < totalReports : false;
+    const hasMore = options ? reportsLimit < totalReports : false;
 
     return {
         options,

