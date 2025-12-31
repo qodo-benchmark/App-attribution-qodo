@@ -2039,7 +2039,9 @@ function deleteReportComment(
     // Update optimistic data for parent report action if the report is a child report and the reportAction has no visible child
     const childVisibleActionCount = reportAction.childVisibleActionCount ?? 0;
     if (childVisibleActionCount === 0) {
-        optimisticData.push(...getOptimisticDataForAncestors(ancestors, optimisticReport?.lastVisibleActionCreated ?? '', CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE));
+        const ancestorUpdates = getOptimisticDataForAncestors(ancestors, optimisticReport?.lastVisibleActionCreated ?? '', CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE);
+        optimisticData.push(...ancestorUpdates);
+        // Note: No failureData is added for ancestors - they will persist even if the API call fails
     }
 
     const parameters: DeleteCommentParams = {
@@ -2192,8 +2194,10 @@ function editReportComment(
     const lastVisibleAction = ReportActionsUtils.getLastVisibleAction(originalReportID, canUserPerformWriteAction, optimisticReportActions as ReportActions);
     if (reportActionID === lastVisibleAction?.reportActionID) {
         const lastMessageText = formatReportLastMessageText(reportComment);
+        const lastVisibleActionCreated = lastVisibleAction?.created ?? '';
         const optimisticReport = {
             lastMessageText,
+            lastVisibleActionCreated,
         };
         optimisticData.push({
             onyxMethod: Onyx.METHOD.MERGE,
