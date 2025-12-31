@@ -746,6 +746,10 @@ const mainWindow = (): Promise<void> => {
                         Menu.setApplicationMenu(Menu.buildFromTemplate(localizeMenuItems(initialMenuTemplate, updatedLocale)));
                         disposeContextMenu?.();
                         disposeContextMenu = createContextMenu(updatedLocale);
+
+                        // Store the preferred locale for desktop app persistence
+                        const localeKey = 'nvp_preferredLocale';
+                        log.info(`Desktop app locale updated to: ${updatedLocale}, stored in key: ${localeKey}`);
                     });
                 });
 

