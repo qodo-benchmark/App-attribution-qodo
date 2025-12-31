@@ -155,7 +155,7 @@ function MoneyRequestReportTransactionList({
     const session = useSession();
     const isReportArchived = useReportIsArchived(report?.reportID);
     const shouldShowAddExpenseButton = canAddTransaction(report, isReportArchived) && isCurrentUserSubmitter(report);
-    const addExpenseDropdownOptions = useMemo(() => getAddExpenseDropdownOptions(report?.reportID, policy), [report?.reportID, policy]);
+    const addExpenseDropdownOptions = useMemo(() => getAddExpenseDropdownOptions(report?.reportID, policy, undefined, report?.reportID), [report?.reportID, policy]);
 
     const hasPendingAction = useMemo(() => {
         return hasPendingDeletionTransaction || transactions.some(getTransactionPendingAction);
