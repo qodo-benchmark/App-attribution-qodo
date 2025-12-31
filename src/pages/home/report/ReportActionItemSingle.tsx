@@ -109,7 +109,7 @@ function ReportActionItemSingle({
 
     // Check if this is an automatic action
     const originalMessage = getOriginalMessage(action);
-    const isAutomaticAction = originalMessage && 'automaticAction' in originalMessage ? originalMessage.automaticAction : false;
+    const isAutomaticAction = originalMessage && 'automaticAction' in originalMessage && originalMessage.automaticAction;
 
     const headingText = avatarType === CONST.REPORT_ACTION_AVATARS.TYPE.MULTIPLE ? `${primaryAvatar.name} & ${secondaryAvatar.name}` : primaryAvatar.name;
 
