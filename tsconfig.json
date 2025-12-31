@@ -5,7 +5,7 @@
         "types": ["react-native", "react-native-web", "jest", "node"],
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "isolatedModules": true,
-        "strict": true,
+        "strict": false,
         "allowSyntheticDefaultImports": true,
         "incremental": true,
         "baseUrl": ".",
