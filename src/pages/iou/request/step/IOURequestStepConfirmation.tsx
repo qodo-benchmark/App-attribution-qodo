@@ -460,9 +460,9 @@ function IOURequestStepConfirmation({
 
         Promise.all(
             transactions.map((item) => {
-                const itemReceiptFilename = item.receipt?.filename;
-                const itemReceiptPath = item.receipt?.source;
-                const itemReceiptType = item.receipt?.type;
+                const itemReceiptFilename = item?.receipt?.filename;
+                const itemReceiptPath = item?.receipt?.source;
+                const itemReceiptType = item?.receipt?.type;
                 const isLocalFile = isLocalFileFileUtils(itemReceiptPath);
 
                 if (!isLocalFile) {

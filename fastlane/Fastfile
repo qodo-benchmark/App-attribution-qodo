@@ -454,10 +454,10 @@ platform :ios do
 
   desc "Build an unsigned iOS HybridApp production build"
   lane :build_unsigned_hybrid do
-    ENV["ENVFILE"]="./Mobile-Expensify/.env.production.hybridapp.ios"
+    ENV["ENVFILE"]=".env.production"
     build_app(
-      workspace: "./Mobile-Expensify/iOS/Expensify.xcworkspace",
-      scheme: "Expensify",
+      workspace: "./ios/NewExpensify.xcworkspace",
+      scheme: "New Expensify Dev",
       configuration: "Debug",
       sdk: "iphonesimulator",
       skip_codesigning: true,

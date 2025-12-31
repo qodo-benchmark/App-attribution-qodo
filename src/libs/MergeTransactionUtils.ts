@@ -65,7 +65,7 @@ function getMergeFieldErrorText(translate: LocaleContextProps['translate'], merg
  */
 function fillMissingReceiptSource(transaction: Transaction) {
     // If receipt.source already exists, no need to modify
-    if (!transaction.receipt || !!transaction.receipt.source || !transaction.receipt.filename) {
+    if (!transaction.receipt || transaction.receipt.source || !transaction.receipt.filename) {
         return transaction;
     }
 

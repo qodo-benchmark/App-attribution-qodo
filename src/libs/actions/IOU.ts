@@ -4212,7 +4212,13 @@ function getTrackExpenseInformation(params: GetTrackExpenseInformationParams): T
             distance,
             created,
             merchant,
-            receipt,
+            receipt: receipt
+                ? receipt
+                : {
+                      source: existingTransaction?.receipt?.source,
+                      state: CONST.IOU.RECEIPT_STATE.OPEN,
+                      filename: existingTransaction?.receipt?.filename,
+                  },
             category,
             tag,
             taxCode,
@@ -4220,7 +4226,6 @@ function getTrackExpenseInformation(params: GetTrackExpenseInformationParams): T
             billable,
             pendingFields: isDistanceRequest && !isManualDistanceRequest ? {waypoints: CONST.RED_BRICK_ROAD_PENDING_ACTION.ADD} : undefined,
             reimbursable,
-            filename: existingTransaction?.receipt?.filename,
             attendees,
         },
     });
@@ -7657,7 +7662,7 @@ function startSplitBill({
         },
     });
 
-    const filename = splitTransaction.receipt?.filename;
+    const filename = receipt?.filename;
 
     // Note: The created action must be optimistically generated before the IOU action so there's no chance that the created action appears after the IOU action in the chat
     const splitChatCreatedReportAction = buildOptimisticCreatedReportAction(currentUserEmailForIOUSplit);
