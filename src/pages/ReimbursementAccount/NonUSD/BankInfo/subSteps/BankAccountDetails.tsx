@@ -80,7 +80,7 @@ function BankAccountDetails({onNext, isEditing, corpayFields}: BankInfoSubStepPr
 
             return errors;
         },
-        [corpayFields?.formFields, translate],
+        [corpayFields, translate],
     );
 
     const handleSubmit = useReimbursementAccountStepFormSubmit({
