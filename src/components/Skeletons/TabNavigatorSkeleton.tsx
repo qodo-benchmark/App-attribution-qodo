@@ -21,7 +21,8 @@ function TabNavigatorSkeleton() {
                 style={[styles.flex1, styles.ml4, styles.button, styles.highlightBG]}
             >
                 <Rect
-                    transform={[{translateX: '20%'}, {translateY: 13}]}
+                    x="20%"
+                    y={13}
                     width="60%"
                     height={14}
                 />
@@ -34,7 +35,8 @@ function TabNavigatorSkeleton() {
                 style={[styles.flex1, styles.mr4, styles.button, styles.appBG]}
             >
                 <Rect
-                    transform={[{translateX: '20%'}, {translateY: 13}]}
+                    x="20%"
+                    y={13}
                     width="60%"
                     height={14}
                 />
