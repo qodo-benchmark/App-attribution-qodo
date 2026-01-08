@@ -2506,9 +2506,7 @@ ${merchant}的${amount} - ${date}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[前往会计](${workspaceAccountingLink}).
-
-                        ![连接到 ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                ? `[前往会计](${workspaceAccountingLink}).\n\n![连接到 ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
                                 : `[前往会计](${workspaceAccountingLink}).`
                         }`),
             },

@@ -2556,10 +2556,8 @@ ${amount} pour ${merchant} - ${date}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[Accéder à la comptabilité](${workspaceAccountingLink}).
-
-                        ![Se connecter à ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
-                                : `[Accéder à la comptabilité](${workspaceAccountingLink})`
+                                ? `[Accéder à la comptabilité](${workspaceAccountingLink}).\n\n![Se connecter à ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                : `[Accéder à la comptabilité](${workspaceAccountingLink}).`
                         }`),
             },
             connectCorporateCardTask: {

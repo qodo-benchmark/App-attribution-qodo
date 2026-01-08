@@ -2544,9 +2544,7 @@ ${amount} per ${merchant} - ${date}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[Portami alla contabilità](${workspaceAccountingLink}).
-
-                        ![Connetti a ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                ? `[Portami alla contabilità](${workspaceAccountingLink}).\n\n![Connetti a ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
                                 : `[Portami alla contabilità](${workspaceAccountingLink}).`
                         }`),
             },

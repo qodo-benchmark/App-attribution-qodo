@@ -2543,9 +2543,7 @@ ${amount} voor ${merchant} - ${date}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[Breng me naar de boekhouding](${workspaceAccountingLink}).
-
-                        ![Verbinding maken met ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                ? `[Breng me naar de boekhouding](${workspaceAccountingLink}).\n\n![Verbinding maken met ${integrationName}](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
                                 : `[Breng me naar de boekhouding](${workspaceAccountingLink}).`
                         }`),
             },

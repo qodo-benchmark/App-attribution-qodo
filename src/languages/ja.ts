@@ -2533,9 +2533,7 @@ ${date} - ${merchant}に${amount}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[会計に移動](${workspaceAccountingLink}).
-
-                        ![${integrationName} に接続](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                ? `[会計に移動](${workspaceAccountingLink}).\n\n![${integrationName} に接続](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
                                 : `[会計に移動](${workspaceAccountingLink}).`
                         }`),
             },

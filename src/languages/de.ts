@@ -2556,9 +2556,7 @@ ${amount} für ${merchant} - ${date}`,
 
                         ${
                             integrationName && CONST.connectionsVideoPaths[integrationName]
-                                ? `[Zur Buchhaltung](${workspaceAccountingLink}).
-
-                        ![Mit ${integrationName} verbinden](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
+                                ? `[Zur Buchhaltung](${workspaceAccountingLink}).\n\n![Mit ${integrationName} verbinden](${CONST.CLOUDFRONT_URL}/${CONST.connectionsVideoPaths[integrationName]})`
                                 : `[Zur Buchhaltung](${workspaceAccountingLink}).`
                         }`),
             },
