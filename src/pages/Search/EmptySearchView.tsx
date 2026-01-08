@@ -130,7 +130,18 @@ const hasTransactionsSelector = (transactions: OnyxCollection<Transaction>) =>
     Object.values(transactions ?? {}).filter((transaction) => transaction?.pendingAction !== CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length > 0;
 
 const hasExpenseReportsSelector = (reports: OnyxCollection<Report>) =>
-    Object.values(reports ?? {}).filter((report) => report?.type === CONST.REPORT.TYPE.EXPENSE && report?.pendingAction !== CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE).length > 0;
+    Object.values(reports ?? {}).filter((report) => {
+        if (!report?.reportID) {
+            return false;
+        }
+
+        const isExpenseReport = report.type === CONST.REPORT.TYPE.EXPENSE;
+        const isBeingDeleted =
+            report.pendingAction === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE ||
+            report.pendingFields?.preview === CONST.RED_BRICK_ROAD_PENDING_ACTION.DELETE;
+
+        return isExpenseReport && !isBeingDeleted;
+    }).length > 0;
 
 function EmptySearchViewContent({
     similarSearchHash,
