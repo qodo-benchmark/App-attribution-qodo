@@ -11,7 +11,7 @@ const TRANSACTION_ID_R98765 = 'TRANSACTION_ID_R98765';
 const receiptR14932 = {
     state: CONST.IOU.RECEIPT_STATE.OPEN,
     source: 'mockData/eReceiptBGs/eReceiptBG_pink.png',
-    filename: 'test.html',
+    filename: 'eReceiptBG_pink.png',
 };
 
 const transactionR14932: Transaction = {
